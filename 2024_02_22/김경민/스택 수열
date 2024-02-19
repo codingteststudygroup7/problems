@@ -1,0 +1,39 @@
+def solution(answer):
+    stack = []
+    idx = 0
+    result = []
+    for i in answer:
+        # 수열 정답 하나씩 꺼내기 -> 4
+        # 수열 정답 숫자가 스택의 top에 있으면 꺼내기 
+        # 그렇기 않은 경우, 지금까지 오름차순으로 넣은 숫자가 해당 정답을 넘어가면 이건 망함
+        # 그렇지 않다면, 그 정답까지 스택에 넣음 -> 1 2 3 4
+        # pop
+        if(len(stack) > 0 and stack[len(stack)-1] == i):
+            stack.pop()
+            result.append('-')
+     
+        else:
+            if(idx < i):
+                for j in range(idx+1, i+1):
+                    stack.append(j)
+                    idx += 1
+                    result.append('+')
+      
+                stack.pop()
+                result.append('-')
+
+            else:
+                print('NO')
+                return 
+
+    for i in result:
+        print(i)
+
+
+
+N = int(input())
+answer = []
+for _ in range(N):
+    answer.append(int(input()))
+
+solution(answer)
