@@ -10,12 +10,10 @@ const check = (str) => {
       continue;
     }
 
-    const top = stack[stack.length - 1];
+    const top = stack.pop();
     if (top === "(") {
-      stack.pop();
-      continue;
+      return "NO";
     }
-    return "NO";
   }
 
   return stack.length > 0 ? "NO" : "YES";
