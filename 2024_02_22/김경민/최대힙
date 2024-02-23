@@ -1,0 +1,123 @@
+from heapq import heappush, heappop
+import sys
+
+## 힙모듈을 이용한 간단한 방식입니다.
+def solution(input_num):
+  global heap
+
+  if(input_num == 0):
+    if(len(heap) == 0): # 비었으면
+      return 0
+
+    else: # 최대힙 삭제
+        pop_num = heappop(heap)
+        return pop_num[1]
+
+    
+  else: # 최대힙 삽입
+    heappush(heap, (-input_num, input_num))
+
+'''
+  ## 아래는 직접구현 방식입니다.
+  
+def solution(input_num):
+    global dq
+    
+    if(input_num == 0):
+        if(len(dq) == 0): # 비었으면
+            return 0
+
+        else: # 최대힙 삭제
+            pop_num = dq.popleft() # root 노드 삭제
+
+            # 마지막 노드를 root로 가져오기
+            if(len(dq) == 0):
+                return pop_num
+            
+            last_num = dq.pop()
+            dq.appendleft(last_num)
+
+            # 내려가면서 비교
+            current_idx = 0
+            left_node = current_idx * 2 + 1
+            right_node = left_node + 1
+
+            while left_node < len(dq) or right_node < len(dq): # 더이상 아래에 비교할 노드가 없을때까지
+        
+                if(left_node >= len(dq)): # 왼노드가 없음
+                    if(dq[current_idx] < dq[right_node]):
+                        dq[current_idx], dq[right_node] =  dq[right_node], dq[current_idx] # 바꿔주기
+                        current_idx = right_node
+
+                        left_node = current_idx*2 + 1
+                        right_node = left_node + 1
+                        continue
+                    else:
+                        break
+        
+
+                if(right_node >= len(dq)): # 오른 노드가 없음
+                    if(dq[current_idx] < dq[left_node]):
+                        dq[current_idx], dq[left_node] =  dq[left_node], dq[current_idx] # 바꿔주기
+                        current_idx = left_node
+
+                        left_node = current_idx*2 + 1
+                        right_node = left_node + 1
+                        continue
+                    else:
+                       break
+                   
+
+
+                # 오른, 왼 노드 모두 있을대 때
+                # 다음 뎁스의 가장 큰 원소와 비교
+                if(dq[left_node] > dq[right_node]): 
+                    if(dq[current_idx] < dq[left_node]):
+                        dq[current_idx], dq[left_node] =  dq[left_node], dq[current_idx] # 바꿔주기
+                        current_idx = left_node
+
+                        left_node = current_idx*2 + 1
+                        right_node = left_node + 1
+                    else:
+                        break
+                else:
+                    if(dq[current_idx] < dq[right_node]):
+                        dq[current_idx], dq[right_node] =  dq[right_node], dq[current_idx] # 바꿔주기
+                        current_idx = right_node
+
+                        left_node = current_idx*2 + 1
+                        right_node = left_node + 1
+                    else:
+                        break
+                
+            return pop_num
+        
+
+    
+    else: # 최대힙 삽입
+        dq.append(input_num) # 삽입
+
+        current_idx = len(dq)-1
+
+        # 올라가면서 비교
+        while(current_idx != 0):
+            parent_idx = (current_idx - 1) // 2 # 비교한 부모 노드
+
+            if(dq[parent_idx] < dq[current_idx]):
+                dq[parent_idx], dq[current_idx] =  dq[current_idx], dq[parent_idx] # 바꿔주기
+                current_idx = parent_idx
+            else:
+                break
+  
+'''
+
+N = int(sys.stdin.readline())
+heap = []
+
+for _ in range(N):
+    input_num = int(sys.stdin.readline())
+
+    answer = solution(input_num)
+    #print(heap)
+    if(answer != None):
+        print(answer)

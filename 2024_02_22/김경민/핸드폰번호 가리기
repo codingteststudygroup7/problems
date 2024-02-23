@@ -1,0 +1,15 @@
+def solution(phone_number):
+    
+    '''
+    for idx, c in enumerate(phone_number[::-1]):
+        if(idx > 3):
+            answer += "*"
+        else:
+            answer += c
+    '''
+
+		# gpt의 힘을 얻어 "*" 을 곱하기 연산으로 여러개 반복
+    answer = phone_number[::-1][0:4] + "*" * (len(phone_number) - 4)
+        
+
+    return answer[::-1]
