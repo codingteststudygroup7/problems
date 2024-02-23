@@ -1,0 +1,48 @@
+# 1021
+
+# 주어진 순서대로 원소를 뽑아야 함
+# 왼쪽이동, 오른쪽 이동의 개수를 세서 최소인 방향으로 이동
+
+from collections import deque
+import copy
+
+def solution(n, extract):
+    answer = 0
+
+    dq = deque()
+    for i in range(1, n+1):
+        dq.append(i)
+
+    for i in extract:
+        if(i == dq[0]):
+            dq.popleft()
+            continue
+
+        idx = dq.index(i)
+        left_num = abs(idx - 0)
+        right_num = abs(len(dq)-1 - idx) + 1
+    
+
+        #left 이동
+        if(left_num <= right_num):
+          # 필요한 만큼 이동
+          for j in range(left_num):
+            pop_num = dq.popleft()
+            dq.append(pop_num)
+            answer += 1
+ 
+        else:
+          #right 이동
+          # 필요한 만큼 이동
+          for j in range(right_num):
+            pop_num = dq.pop()
+            dq.appendleft(pop_num)
+            answer += 1
+    
+        dq.popleft()
+
+    return answer
+
+N, M = map(int, input().split())
+extract_list = list(map(int, input().split(' '))) # 뽑아야 할 원소들의 위치
+print(solution(N, extract_list))
