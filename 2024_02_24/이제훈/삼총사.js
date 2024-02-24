@@ -1,6 +1,7 @@
 function solution(number) {
   let answer = 0;
-  const dfs = (level, start, sum) => {
+  const dfs = (level, start, sum, path) => {
+    console.log(path);
     if (level === 3) {
       if (sum === 0) {
         answer++;
@@ -8,7 +9,7 @@ function solution(number) {
       return;
     }
     for (let i = start; i < number.length; i++) {
-      dfs(level + 1, i + 1, sum + number[i]);
+      dfs(level + 1, i + 1, sum + number[i], [...path, number[i]]);
     }
   };
   dfs(0, 0, 0, []);

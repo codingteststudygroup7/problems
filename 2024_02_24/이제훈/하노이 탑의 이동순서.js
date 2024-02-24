@@ -1,7 +1,4 @@
-const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const input = fs.readFileSync(filePath).toString().trim();
-const K = Number(input);
+const K = 3;
 let count = 0;
 const answer = [];
 const hanoi = (num, start, target, helper) => {
