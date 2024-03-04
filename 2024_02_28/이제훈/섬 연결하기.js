@@ -1,11 +1,11 @@
 function solution(n, costs) {
-  const unionParent = (set, a, b) => {
-    a = getParent(set, a);
-    b = getParent(set, b);
+  const unionParent = (table, a, b) => {
+    a = getParent(table, a);
+    b = getParent(table, b);
     if (a < b) {
-      set[b] = a;
+      table[b] = a;
     } else {
-      set[a] = b;
+      table[a] = b;
     }
   };
 
@@ -19,11 +19,11 @@ function solution(n, costs) {
     }
   };
 
-  const getParent = (set, x) => {
-    if (set[x] === x) {
+  const getParent = (table, x) => {
+    if (table[x] === x) {
       return x;
     }
-    return getParent(set, set[x]);
+    return getParent(table, table[x]);
   };
 
   let answer = 0;
