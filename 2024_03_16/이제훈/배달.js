@@ -4,7 +4,6 @@ function solution(N, road, K) {
     g[a][b] = g[a][b] === 0 ? c : Math.min(g[a][b], c);
     g[b][a] = g[a][b] === 0 ? c : Math.min(g[a][b], c);
   }
-  let answer = Number.MIN_SAFE_INTEGER;
   const set = new Set();
   const check = Array(N + 1).fill(false);
   const dfs = (v, time) => {
